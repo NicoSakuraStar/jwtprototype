@@ -1,0 +1,27 @@
+/* --- Tailwind CSS Directives (MANDATORY STRUCTURE) --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* ---------------------------------------------------- */
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Removed: @theme inline and Geist font variables */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  /* Set a clean, accessible font */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
+  background-color: var(--background);
+  color: var(--foreground);
+}

@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const { email, password } = await request.json();
 
-    // 1. Validate input
+    // Validates input
     if (!email || !password) {
       return NextResponse.json(
         { message: "Email and password are required" },
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Find user. MUST explicitly select '+password'
+    // Finds user. MUST explicitly select '+password'
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 3. Check password match
+    // Checks password match
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -48,14 +48,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4. Generate JWT
+    // Generates JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       secret,
       { expiresIn: "1h" }
     );
 
-    // 5. Serialize the cookie
+    // Serializes the cookie and places JWT token in it
     const serialized = serialize("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       path: "/",
     });
 
-    // 6. Create success response and set the cookie
+    // Creates success response and sets the cookie
     const response = NextResponse.json(
       { message: "logged in successfully" },
       { status: 200 }

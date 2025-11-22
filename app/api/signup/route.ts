@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     await connectDB();
     const { email, password } = await request.json();
 
-    // 1. Basic Input Validation
+    // Basic Input Validation
     if (!email || !password) {
       return NextResponse.json(
         { message: "Email and password are required" },
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
     
-    // 2. Check if user already exists
+    // Checks if user already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -27,11 +27,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Hash the password
+    // Hashes the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 4. Create and save the new user
+    // Creates and save the new user
     const newUser = new User({
       email,
       password: hashedPassword,
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     
     await newUser.save();
 
-    // Do not return sensitive user data (like the password hash)
+    // Don't return sensitive user data (like the password hash)
     return NextResponse.json(
       { message: "User registered successfully. You can now log in." },
       { status: 201 } // 201 Created

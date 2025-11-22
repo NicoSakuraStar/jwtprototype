@@ -4,6 +4,8 @@
 // This component relies on Middleware to ensure the user is authenticated 
 // before rendering this content.
 
+// Tried with  Tailwind before abandoning it
+
 export default function DashboardPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">

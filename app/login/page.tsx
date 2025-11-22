@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-// We are using inline styles for simplicity, but in a real app, you'd use Tailwind CSS or CSS Modules
-// Note: We are using Next.js 14 App Router features
+// Using inline styles for simplicity, but in a nicer app, Tailwind CSS or CSS Modules is used
+// Note: Next.js 14 App Router features are used
 
 export default function AuthPage() {
   const [email, setEmail] = useState('');
